@@ -10,10 +10,24 @@ To write a C Program to find area of rectangle using pointer.
 5.	Stop the program.
 
 ## PROGRAM
+```
+#include <stdio.h>
 
+int main() {
+    float length, width, area;
+    float *ptrLength, *ptrWidth;
+    ptrLength = &length;
+    ptrWidth = &width;
+    scanf("%f", ptrLength);
+    scanf("%f", ptrWidth);
+    area = (*ptrLength) * (*ptrWidth);
+    printf("Area of rectangle = %f sq. units\n", area);
+
+    return 0;
+}
+```
 ## OUTPUT
-		       	
-
+![image](https://github.com/user-attachments/assets/4cb515c8-9302-4eb1-ab22-dc7723ca8290)
 
 ## RESULT
 Thus the program to find area of rectangle using pointer has been executed successfully
@@ -23,7 +37,7 @@ Thus the program to find area of rectangle using pointer has been executed succe
 
 # EX-27-DYNAMIC-MEMORY-ALLOCATION
 ## AIM
-To write a C Program to print 'WELCOME' using malloc() and free().
+To write a C Program to print 'C PROGRAM' using malloc() and free().
 
 ## ALGORITHM
 1.	Start the program.
@@ -34,17 +48,40 @@ To write a C Program to print 'WELCOME' using malloc() and free().
 6.	Stop the program.
 
 ## PROGRAM
+```
+#include <stdio.h>
+#include <stdlib.h>
 
+int main() {
+    char *str = (char *)malloc(11 * sizeof(char)); 
+
+    if (str == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1; 
+    }
+    str[0] = 'C';
+    str[1] = ' ';
+    str[2] = 'P';
+    str[3] = 'R';
+    str[4] = 'O';
+    str[5] = 'G';
+    str[6] = 'R';
+    str[7] = 'A';
+    str[8] = 'M';
+    str[9] = '\0';
+
+    printf("%s\n", str);
+
+    free(str);
+
+    return 0;
+}
+```
 ## OUTPUT
-
-
+![image](https://github.com/user-attachments/assets/529be820-9ee4-4607-bf27-0abd2b5813fe)
 
 ## RESULT
 Thus the program to print 'WELCOME' using malloc() and free() has been executed successfully
- 
-.
-
-
 
 # EX-28-STUDENT-INFORMATION-USING-STRUCTURE
 
@@ -60,9 +97,31 @@ To write a C Program to store the student information and display it using struc
 4.	Stop the program.
 
 ## PROGRAM
+```
+#include <stdio.h>
 
+struct Student {
+    char name[50];
+    int roll_number;
+    float marks;
+};
 
+int main() {
+    struct Student student;
+
+    fgets(student.name, sizeof(student.name), stdin);
+    scanf("%d", &student.roll_number);
+    scanf("%f", &student.marks);
+    printf("Displaying Information:\n");
+    printf("Name: %s", student.name);
+    printf("Roll number: %d\n", student.roll_number);
+    printf("Marks: %.1f\n", student.marks);
+
+    return 0;
+}
+```
 ## OUTPUT
+![image](https://github.com/user-attachments/assets/2a85f264-4c06-4cf0-be89-e37537dc677b)
 
 
 ## RESULT
@@ -76,35 +135,54 @@ Thus the program to store the student information and display it using structure
 
 ## AIM
 
-To write a C Program to read and store the data of 3 employees and calculate their Gross Salary using the concept of structure.
+C program to read and print an employee's detail using structure
 
 ## ALGORITHM
 
 1.	Start the program.
 2.	Create an employee structure with name, id and salary details as members.
 3.	Using structure variable read the structure members.
-4.	Calculate the gross salary and print the details.
+4.	Calculate the salary and print the details.
 5.	Stop the program.
 
 ## PROGRAM
+```
+#include <stdio.h>
 
+struct Employee {
+    char name[50];
+    int id;
+    float salary;
+};
 
+int main() {
+    struct Employee emp;
+    scanf(" %[^\n]", emp.name); 
+    scanf("%d", &emp.id);   
+    scanf("%f", &emp.salary);  
+
+    printf("Entered detail is:\n");
+    printf("Name: %s\n", emp.name);
+    printf("Id: %d\n", emp.id);
+    printf("Salary: %.2f\n", emp.salary);
+
+    return 0;
+}
+```
  ## OUTPUT
+![image](https://github.com/user-attachments/assets/954ece93-47ea-4e42-9ab7-6449f758a4b1)
 
- 
 
 ## RESULT
 
-Thus the C program to read and store the data of 3 employees and calculate their Gross Salary using the concept of structure
+Thus the C program to read and store the data of 3 employees and calculate their Salary using the concept of structure
  
-
-
 
 
 # EX – 30 -STUDENTS MARK -TOTAL &AVERAGE USING STRUCURE
 
 ## AIM
-Create a C program to calculate the total and average of student using structure.
+Write a ‘C’ program to read(regno & 3 subjects marks) and store the details of a student and calculate the total and percentage using Nested Structures.
 
 ## ALGORITHM 
 
@@ -134,11 +212,56 @@ Step 7: Output Loop (i = 0 to 1):
 Step 8: End the program.
 
 ## PROGRAM
+```
+#include <stdio.h>
 
+struct marks {
+    int subject1;
+    int subject2;
+    int subject3;
+};
 
+struct student {
+    int regno;
+    struct marks m;
+    float total;
+    float percentage;
+};
+
+void calculate(struct student* s) {
+    s->total = s->m.subject1 + s->m.subject2 + s->m.subject3;
+    s->percentage = (s->total / 300.0) * 100;
+}
+
+int main() {
+    struct student students[5];
+    int i;
+    for (i = 0; i < 5; i++) {
+       
+        scanf("%d", &students[i].regno);
+        scanf("%d", &students[i].m.subject1);
+        scanf("%d", &students[i].m.subject2);
+        scanf("%d", &students[i].m.subject3);
+
+        calculate(&students[i]);
+    }
+
+    printf("Student Details are\n");
+    for (i = 0; i < 5; i++) {
+        printf("%d       %d       %d       %d       %.2f       %.2f\n", 
+            students[i].regno, 
+            students[i].m.subject1, 
+            students[i].m.subject2, 
+            students[i].m.subject3, 
+            students[i].total, 
+            students[i].percentage);
+    }
+
+    return 0;
+}
+```
 ## OUTPUT
-
- 
+![image](https://github.com/user-attachments/assets/ed0dd373-8c3e-4a3c-9bb5-7082c9966c4b)
 
 ## RESULT
 
